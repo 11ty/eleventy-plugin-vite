@@ -1,4 +1,4 @@
-<p align="center"><img src="https://www.11ty.dev/img/logo-github.png" alt="11ty Logo"> 🤝 <img src="https://v1.image.11ty.dev/https%3A%2F%2Fvitejs.dev%2Flogo.svg/png/200x200/" alt="Vite logo"></p>
+<p align="center"><img src="https://www.11ty.dev/img/logo-github.png" alt="11ty Logo">&#160;&#160;<img src="https://v1.image.11ty.dev/https%3A%2F%2Fvitejs.dev%2Flogo.svg/png/200x200/" alt="Vite logo"></p>
 
 # eleventy-plugin-vite 🕚⚡️🎈🐀
 
