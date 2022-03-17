@@ -2,11 +2,11 @@
 
 # eleventy-plugin-vite 🕚⚡️🎈🐀
 
-A server plugin to use [Vite](https://vitejs.dev/) with Eleventy 2.0+.
+A plugin to use [Vite](https://vitejs.dev/) with Eleventy 2.0+.
 
 This plugin:
 
-* Runs Vite as Middleware in Eleventy Dev Server
+* Runs Vite as Middleware in Eleventy Dev Server (recommended with `--incremental`)
 * Runs Vite build to postprocess your Eleventy build output
 
 ## Related Community Work
