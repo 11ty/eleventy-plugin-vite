@@ -9,7 +9,7 @@ This plugin:
 * Runs Vite as Middleware in Eleventy Dev Server (recommended with `--incremental`)
 * Runs Vite build to postprocess your Eleventy build output
 
-## Related Community Work
+## Related Projects
 
 * [`slinkity`](https://slinkity.dev/) by @Holben888: a much deeper and more comprehensive integration with Vite! Offers partial hydration and can use shortcodes to render framework components in Eleventy!
 * [`vite-plugin-eleventy`](https://www.npmjs.com/package/vite-plugin-eleventy) by @Snugug: uses Eleventy as Middleware in Vite (instead of the post-processing approach used here)
