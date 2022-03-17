@@ -38,7 +38,7 @@ module.exports = function(eleventyConfig) {
 };
 ```
 
-### More options
+### Options
 
 View the [full list of Vite Configuration options](https://vitejs.dev/config/).
 
