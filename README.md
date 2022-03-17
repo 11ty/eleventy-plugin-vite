@@ -6,7 +6,7 @@ A plugin to use [Vite](https://vitejs.dev/) with Eleventy 2.0+.
 
 This plugin:
 
-* Runs Vite as Middleware in Eleventy Dev Server (recommended with `--incremental`)
+* Runs Vite as Middleware in Eleventy Dev Server (try with Eleventy’s `--incremental`)
 * Runs Vite build to postprocess your Eleventy build output
 
 ## Related Projects
