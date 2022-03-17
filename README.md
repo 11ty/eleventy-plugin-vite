@@ -22,7 +22,7 @@ This plugin:
 - [11ty on npm](https://www.npmjs.com/org/11ty)
 - [11ty on GitHub](https://github.com/11ty)
 
-[![npm Version](https://img.shields.io/npm/v/@11ty/eleventy-server-browsersync.svg?style=for-the-badge)](https://www.npmjs.com/package/@11ty/eleventy-server-browsersync)
+[![npm Version](https://img.shields.io/npm/v/@11ty/eleventy-plugin-vite.svg?style=for-the-badge)](https://www.npmjs.com/package/@11ty/eleventy-plugin-vite)
 
 ## Installation
 
