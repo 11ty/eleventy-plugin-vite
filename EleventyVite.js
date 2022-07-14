@@ -47,11 +47,8 @@ class EleventyVite {
       let viteOptions = lodashMerge({}, this.options.viteOptions);
       viteOptions.root = tmp;
 
-      let publicDir = path.join(this.outputDir, viteOptions.publicDir || "public", path.sep);
-
       viteOptions.build.rollupOptions.input = input
         .filter(entry => !!entry.outputPath) // filter out `false` serverless routes
-        .filter(entry => !entry.outputPath.startsWith(publicDir)) // filter out files in public/, vite/rollup will not touch these files and just copy them to the root of your output folder
         .map(entry => {
           if(!entry.outputPath.startsWith(this.outputDir + path.sep)) {
             throw new Error(`Unexpected output path (was not in output directory ${this.outputDir}): ${entry.outputPath}`);

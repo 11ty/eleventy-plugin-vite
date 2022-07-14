@@ -11,6 +11,19 @@ module.exports = function(eleventyConfig, options = {}) {
 
   let eleventyVite = new EleventyVite(eleventyConfig.dir.output, options);
 
+  // Adds support for automatic publicDir passthrough copy
+  // vite/rollup will not touch these files and as part of the build will copy them to the root of your output folder
+  let publicDir = eleventyVite.options.viteOptions?.publicDir || "public";
+  eleventyConfig.ignores.add(publicDir);
+
+  // Use for-free passthrough copy on the public directory
+  let passthroughCopyObject = {};
+  passthroughCopyObject[`${publicDir}/**`] = "/"
+  eleventyConfig.addPassthroughCopy(passthroughCopyObject);
+
+  // Add temp folder to the ignores
+  eleventyConfig.ignores.add(eleventyVite.getIgnoreDirectory());
+
   eleventyConfig.setServerOptions({
     module: "@11ty/eleventy-dev-server",
     // enabled: false,
@@ -26,9 +39,6 @@ module.exports = function(eleventyConfig, options = {}) {
       }
     },
   });
-
-  // Add temp folder to the ignores
-  eleventyConfig.ignores.add(eleventyVite.getIgnoreDirectory());
 
   // Run Vite build
   // TODO use `build.write` option to work with json or ndjson outputs
