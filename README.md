@@ -54,7 +54,7 @@ module.exports = function(eleventyConfig) {
       clearScreen: false,
       server: {
         mode: "development",
-        middlewareMode: "ssr",
+        middlewareMode: true,
       },
       build: {
         mode: "production",

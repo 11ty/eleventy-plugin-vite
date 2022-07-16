@@ -7,10 +7,11 @@ const DEFAULT_OPTIONS = {
   tempFolderName: ".11ty-vite",
   viteOptions: {
     clearScreen: false,
+    appType: "custom",
     server: {
       // hmr: false,
       mode: "development",
-      middlewareMode: "ssr",
+      middlewareMode: true,
     },
     build: {
       mode: "production",
