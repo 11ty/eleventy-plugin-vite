@@ -9,7 +9,6 @@ const DEFAULT_OPTIONS = {
     clearScreen: false,
     appType: "custom",
     server: {
-      // hmr: false,
       mode: "development",
       middlewareMode: true,
     },
@@ -25,7 +24,7 @@ class EleventyVite {
     this.outputDir = outputDir;
     this.options = lodashMerge({}, DEFAULT_OPTIONS, pluginOptions);
   }
-  
+
   async getServerMiddleware() {
     let viteOptions = lodashMerge({}, this.options.viteOptions);
     viteOptions.root = this.outputDir;
@@ -50,6 +49,7 @@ class EleventyVite {
 
       viteOptions.build.rollupOptions.input = input
         .filter(entry => !!entry.outputPath) // filter out `false` serverless routes
+        .filter(entry => (entry.outputPath || "").endsWith(".html")) // only html output
         .map(entry => {
           if(!entry.outputPath.startsWith(this.outputDir + path.sep)) {
             throw new Error(`Unexpected output path (was not in output directory ${this.outputDir}): ${entry.outputPath}`);
