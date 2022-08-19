@@ -11,6 +11,9 @@ module.exports = function(eleventyConfig, options = {}) {
 
   let eleventyVite = new EleventyVite(eleventyConfig.dir.output, options);
 
+  // Fallback to old passthrough copy behavior for compatibility with Vite
+  // eleventyConfig.setServerPassthroughCopyBehavior("copy");
+
   // Adds support for automatic publicDir passthrough copy
   // vite/rollup will not touch these files and as part of the build will copy them to the root of your output folder
   let publicDir = eleventyVite.options.viteOptions?.publicDir || "public";
@@ -18,7 +21,7 @@ module.exports = function(eleventyConfig, options = {}) {
 
   // Use for-free passthrough copy on the public directory
   let passthroughCopyObject = {};
-  passthroughCopyObject[`${publicDir}/**`] = "/"
+  passthroughCopyObject[`${publicDir}/`] = "/"
   eleventyConfig.addPassthroughCopy(passthroughCopyObject);
 
   // Add temp folder to the ignores
@@ -29,7 +32,7 @@ module.exports = function(eleventyConfig, options = {}) {
     // enabled: false,
     // domdiff: false,
     showVersion: true,
-    
+
     setup: async () => {
       // Use Vite as Middleware
       let middleware = await eleventyVite.getServerMiddleware();
