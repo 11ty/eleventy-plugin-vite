@@ -27,21 +27,23 @@ module.exports = function(eleventyConfig, options = {}) {
   // Add temp folder to the ignores
   eleventyConfig.ignores.add(eleventyVite.getIgnoreDirectory());
 
-  eleventyConfig.setServerOptions({
+  let serverOptions = Object.assign({
     module: "@11ty/eleventy-dev-server",
     // enabled: false,
     // domdiff: false,
     showVersion: true,
+  }, options.serverOptions);
 
-    setup: async () => {
-      // Use Vite as Middleware
-      let middleware = await eleventyVite.getServerMiddleware();
+  serverOptions.setup = async () => {
+    // Use Vite as Middleware
+    let middleware = await eleventyVite.getServerMiddleware();
 
-      return {
-        middleware: [ middleware ]
-      }
-    },
-  });
+    return {
+      middleware: [ middleware ]
+    }
+  };
+
+  eleventyConfig.setServerOptions(serverOptions);
 
   // Run Vite build
   // TODO use `build.write` option to work with json or ndjson outputs
