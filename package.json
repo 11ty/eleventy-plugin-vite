@@ -5,7 +5,7 @@
   "main": ".eleventy.js",
   "license": "MIT",
   "engines": {
-    "node": ">=14"
+    "node": ">=14.18.0"
   },
   "funding": {
     "type": "opencollective",
