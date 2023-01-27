@@ -1,6 +1,6 @@
 {
   "name": "@11ty/eleventy-plugin-vite",
-  "version": "2.0.0",
+  "version": "4.0.0",
   "description": "A plugin to use Vite as a development server and run Vite to postprocess your Eleventy build.",
   "main": ".eleventy.js",
   "license": "MIT",
@@ -34,6 +34,6 @@
   "homepage": "https://github.com/11ty/eleventy-plugin-vite/",
   "dependencies": {
     "lodash.merge": "^4.6.2",
-    "vite": "^4.0.0"
+    "vite": "^4.0.4"
   }
 }
