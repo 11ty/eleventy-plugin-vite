@@ -49,15 +49,25 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(EleventyVitePlugin, {
     tempFolderName: ".11ty-vite", // Default name of the temp folder
 
-    // Defaults are shown:
+    // defaults are shown
     viteOptions: {
       clearScreen: false,
+      appType: "mpa",
+
       server: {
         mode: "development",
         middlewareMode: true,
       },
+
       build: {
         mode: "production",
+      },
+
+      resolve: {
+        alias: {
+          // Allow references to `node_modules` folder directly
+          '/node_modules': path.resolve(".", 'node_modules')
+        },
       }
     }
   });
