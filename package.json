@@ -5,7 +5,7 @@
   "main": ".eleventy.js",
   "license": "MIT",
   "engines": {
-    "node": ">=12"
+    "node": ">=14.18.0"
   },
   "funding": {
     "type": "opencollective",
@@ -34,6 +34,6 @@
   "homepage": "https://github.com/11ty/eleventy-plugin-vite/",
   "dependencies": {
     "lodash.merge": "^4.6.2",
-    "vite": "^3.2.5"
+    "vite": "^4.0.0"
   }
 }
