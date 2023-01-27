@@ -11,9 +11,6 @@ module.exports = function(eleventyConfig, options = {}) {
 
   let eleventyVite = new EleventyVite(eleventyConfig.dir.output, options);
 
-  // Fallback to old passthrough copy behavior for compatibility with Vite
-  // eleventyConfig.setServerPassthroughCopyBehavior("copy");
-
   // Adds support for automatic publicDir passthrough copy
   // vite/rollup will not touch these files and as part of the build will copy them to the root of your output folder
   let publicDir = eleventyVite.options.viteOptions?.publicDir || "public";
@@ -29,9 +26,7 @@ module.exports = function(eleventyConfig, options = {}) {
 
   let serverOptions = Object.assign({
     module: "@11ty/eleventy-dev-server",
-    // enabled: false,
-    // domdiff: false,
-    showVersion: true,
+    domDiff: false,
   }, options.serverOptions);
 
   serverOptions.setup = async () => {
