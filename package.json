@@ -1,6 +1,6 @@
 {
   "name": "@11ty/eleventy-plugin-vite",
-  "version": "2.0.0-canary.2",
+  "version": "2.0.0",
   "description": "A plugin to use Vite as a development server and run Vite to postprocess your Eleventy build.",
   "main": ".eleventy.js",
   "license": "MIT",
@@ -16,7 +16,7 @@
     "server"
   ],
   "11ty": {
-    "compatibility": ">=2.0.0-canary.4"
+    "compatibility": ">=2.0.0-canary.32"
   },
   "publishConfig": {
     "access": "public"

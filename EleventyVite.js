@@ -6,8 +6,15 @@ const lodashMerge = require("lodash.merge");
 const DEFAULT_OPTIONS = {
   tempFolderName: ".11ty-vite",
   viteOptions: {
+    resolve:{
+      alias:{
+        // Allow references to `node_modules` directly for bundling.
+        '/node_modules': path.resolve(".", 'node_modules')
+        // Note that bare module specifiers are also supported
+      },
+    },
     clearScreen: false,
-    appType: "custom",
+    appType: "mpa",
     server: {
       mode: "development",
       middlewareMode: true,
@@ -30,6 +37,7 @@ class EleventyVite {
     viteOptions.root = this.outputDir;
 
     let vite = await createViteServer(viteOptions);
+
     return vite.middlewares;
   }
 
