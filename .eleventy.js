@@ -1,5 +1,4 @@
 const pkg = require("./package.json");
-const path = require("path");
 const EleventyVite = require("./EleventyVite");
 
 module.exports = function(eleventyConfig, options = {}) {
@@ -16,7 +15,7 @@ module.exports = function(eleventyConfig, options = {}) {
   let publicDir = eleventyVite.options.viteOptions?.publicDir || "public";
   eleventyConfig.ignores.add(publicDir);
 
-  // Use for-free passthrough copy on the public directory
+  // Use passthrough copy on the public directory
   let passthroughCopyObject = {};
   passthroughCopyObject[`${publicDir}/`] = "/"
   eleventyConfig.addPassthroughCopy(passthroughCopyObject);
