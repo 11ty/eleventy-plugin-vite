@@ -49,6 +49,9 @@ class EleventyVite {
     let tmp = path.resolve(".", this.options.tempFolderName);
 
     await fsp.mkdir(tmp, { recursive: true });
+    // The following line is a workaround. On Windows, renaming directoryA to directoryB throws an EPERM error if directoryB exists, even if it's empty.
+    // See https://github.com/nodejs/node/issues/21957#issuecomment-408486653.
+    await fsp.rm(tmp, { recursive: true, force: true });
     await fsp.rename(this.outputDir, tmp);
 
     try {
