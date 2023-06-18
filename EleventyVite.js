@@ -48,9 +48,11 @@ class EleventyVite {
   async runBuild(input) {
     let tmp = path.resolve(".", this.options.tempFolderName);
 
+	// copy outputDir into tmp and remove outputDir
     await fsp.mkdir(tmp, { recursive: true });
-    await fsp.rename(this.outputDir, tmp);
-
+	await fsp.cp(this.outputDir, tmp,  { recursive: true });
+	await fsp.rm(this.outputDir,  { recursive: true });
+	
     try {
       let viteOptions = lodashMerge({}, this.options.viteOptions);
       viteOptions.root = tmp;
@@ -58,8 +60,11 @@ class EleventyVite {
       viteOptions.build.rollupOptions.input = input
         .filter(entry => !!entry.outputPath) // filter out `false` serverless routes
         .filter(entry => (entry.outputPath || "").endsWith(".html")) // only html output
-        .map(entry => {
-          if(!entry.outputPath.startsWith(this.outputDir + path.sep)) {
+        .map(entry => {	
+			
+		  // we must ensure the path is normalized to be ensure our separator is correct 		
+          if(!path.normalize(entry.outputPath).startsWith(this.outputDir + path.sep)) {	
+			  
             throw new Error(`Unexpected output path (was not in output directory ${this.outputDir}): ${entry.outputPath}`);
           }
 
@@ -71,7 +76,9 @@ class EleventyVite {
       await buildVite(viteOptions);
     } catch(e) {
       console.warn( `[11ty] Encountered a Vite build error, restoring original Eleventy output to ${this.outputDir}`, e );
-      await fsp.rename(tmp, this.outputDir);
+      
+	  // copy from tmp back to ouptuDir
+	  await fsp.cp(tmp, this.outputDir,  { recursive: true });
       throw e;
     } finally {
       // remove the tmp dir
