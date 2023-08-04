@@ -1,6 +1,5 @@
 const { promises: fsp } = require("fs");
 const path = require("path");
-const { createServer: createViteServer, build: buildVite } = require("vite");
 const lodashMerge = require("lodash.merge");
 
 const DEFAULT_OPTIONS = {
@@ -36,6 +35,7 @@ class EleventyVite {
     let viteOptions = lodashMerge({}, this.options.viteOptions);
     viteOptions.root = this.outputDir;
 
+    const { createViteServer } = await import('vite');
     let vite = await createViteServer(viteOptions);
 
     return vite.middlewares;
@@ -68,6 +68,7 @@ class EleventyVite {
 
       viteOptions.build.outDir = path.resolve(".", this.outputDir);
 
+      const { createViteServer } = await import('vite');
       await buildVite(viteOptions);
     } catch(e) {
       console.warn( `[11ty] Encountered a Vite build error, restoring original Eleventy output to ${this.outputDir}`, e );
