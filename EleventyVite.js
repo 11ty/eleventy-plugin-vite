@@ -68,8 +68,8 @@ class EleventyVite {
 
       viteOptions.build.outDir = path.resolve(".", this.outputDir);
 
-      const { buildVite } = await import('vite');
-      await buildVite(viteOptions);
+      const { build } = await import('vite');
+      await build(viteOptions);
     } catch(e) {
       console.warn( `[11ty] Encountered a Vite build error, restoring original Eleventy output to ${this.outputDir}`, e );
       await fsp.rename(tmp, this.outputDir);
