@@ -35,8 +35,8 @@ class EleventyVite {
     let viteOptions = lodashMerge({}, this.options.viteOptions);
     viteOptions.root = this.outputDir;
 
-    const { createViteServer } = await import('vite');
-    let vite = await createViteServer(viteOptions);
+    const { createServer } = await import('vite');
+    let vite = await createServer(viteOptions);
 
     return vite.middlewares;
   }
