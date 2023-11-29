@@ -59,11 +59,11 @@ class EleventyVite {
         .filter(entry => !!entry.outputPath) // filter out `false` serverless routes
         .filter(entry => (entry.outputPath || "").endsWith(".html")) // only html output
         .map(entry => {
-          if(!entry.outputPath.startsWith(this.outputDir + path.sep)) {
+          if(!entry.outputPath.startsWith(this.outputDir + "/")) {
             throw new Error(`Unexpected output path (was not in output directory ${this.outputDir}): ${entry.outputPath}`);
           }
 
-          return path.resolve(tmp, entry.outputPath.substr(this.outputDir.length + path.sep.length));
+          return path.resolve(tmp, entry.outputPath.substr(this.outputDir.length + "/".length));
         });
 
       viteOptions.build.outDir = path.resolve(".", this.outputDir);
