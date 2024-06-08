@@ -1,7 +1,10 @@
-const pkg = require("./package.json");
-const EleventyVite = require("./EleventyVite");
+import EleventyVite from "./EleventyVite.js";
 
-module.exports = function(eleventyConfig, options = {}) {
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const pkg = require('./package.json');
+
+export default function(eleventyConfig, options = {}) {
   try {
     eleventyConfig.versionCheck(pkg["11ty"].compatibility);
   } catch(e) {

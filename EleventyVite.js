@@ -1,6 +1,7 @@
-const { promises: fsp } = require("fs");
-const path = require("path");
-const lodashMerge = require("lodash.merge");
+import { promises as fsp } from "node:fs";
+import path from "node:path";
+import lodashMerge from "lodash.merge";
+import { build, createServer } from "vite";
 
 const DEFAULT_OPTIONS = {
   tempFolderName: ".11ty-vite",
@@ -35,7 +36,6 @@ class EleventyVite {
     let viteOptions = lodashMerge({}, this.options.viteOptions);
     viteOptions.root = this.outputDir;
 
-    const { createServer } = await import('vite');
     let vite = await createServer(viteOptions);
 
     return vite.middlewares;
@@ -68,7 +68,6 @@ class EleventyVite {
 
       viteOptions.build.outDir = path.resolve(".", this.outputDir);
 
-      const { build } = await import('vite');
       await build(viteOptions);
     } catch(e) {
       console.warn( `[11ty] Encountered a Vite build error, restoring original Eleventy output to ${this.outputDir}`, e );
@@ -81,4 +80,3 @@ class EleventyVite {
   }
 }
 
-module.exports = EleventyVite;

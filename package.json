@@ -1,11 +1,12 @@
 {
   "name": "@11ty/eleventy-plugin-vite",
+  "type": "module",
   "version": "4.0.0",
   "description": "A plugin to use Vite as a development server and run Vite to postprocess your Eleventy build.",
   "main": ".eleventy.js",
   "license": "MIT",
   "engines": {
-    "node": ">=14.18.0"
+    "node": ">=18"
   },
   "funding": {
     "type": "opencollective",
