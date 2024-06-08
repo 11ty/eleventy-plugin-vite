@@ -2,7 +2,7 @@
 
 # eleventy-plugin-vite 🕚⚡️🎈🐀
 
-A plugin to use [Vite v4.0](https://vitejs.dev/) with Eleventy v2.0.
+A plugin to use [Vite v5.0](https://vitejs.dev/) with Eleventy v3.0.
 
 This plugin:
 
@@ -17,7 +17,8 @@ This plugin:
 ## Eleventy Housekeeping
 
 - Please star [Eleventy on GitHub](https://github.com/11ty/eleventy/)!
-- Follow us on Twitter [@eleven_ty](https://twitter.com/eleven_ty)
+- Follow us on Mastodon [@eleventy@fosstodon.org](https://fosstodon.org/@eleventy) or Twitter [@eleven_ty](https://twitter.com/eleven_ty)
+- Join us on [Discord](https://www.11ty.dev/blog/discord/)
 - Support [11ty on Open Collective](https://opencollective.com/11ty)
 - [11ty on npm](https://www.npmjs.com/org/11ty)
 - [11ty on GitHub](https://github.com/11ty)
