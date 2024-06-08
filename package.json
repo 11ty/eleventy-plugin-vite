@@ -33,8 +33,17 @@
   },
   "bugs": "https://github.com/11ty/eleventy-plugin-vite/issues",
   "homepage": "https://github.com/11ty/eleventy-plugin-vite/",
+  "scripts": {
+    "example": "npx @11ty/eleventy --config=example/.eleventy.js --input=example --output=example/_site",
+    "example:start": "npm run example -- --serve",
+    "example:build": "npm run example",
+    "example:clean": "rimraf ./example/_site"
+  },
   "dependencies": {
     "lodash.merge": "^4.6.2",
     "vite": "^5.2.13"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.0.0-alpha.6"
   }
 }
