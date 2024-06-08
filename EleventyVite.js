@@ -26,15 +26,18 @@ const DEFAULT_OPTIONS = {
   }
 }
 
-class EleventyVite {
-  constructor(outputDir, pluginOptions = {}) {
-    this.outputDir = outputDir;
+export default class EleventyVite {
+  /** @type {import("@11ty/eleventy/src/Util/ProjectDirectories.js").default} */
+  directories;
+
+  constructor(directories, pluginOptions = {}) {
+    this.directories = directories;
     this.options = lodashMerge({}, DEFAULT_OPTIONS, pluginOptions);
   }
 
   async getServerMiddleware() {
     let viteOptions = lodashMerge({}, this.options.viteOptions);
-    viteOptions.root = this.outputDir;
+    viteOptions.root = this.directories.output;
 
     let vite = await createServer(viteOptions);
 
@@ -46,10 +49,10 @@ class EleventyVite {
   }
 
   async runBuild(input) {
-    let tmp = path.resolve(".", this.options.tempFolderName);
+    let tmp = path.resolve(this.directories.input, this.options.tempFolderName);
 
     await fsp.mkdir(tmp, { recursive: true });
-    await fsp.rename(this.outputDir, tmp);
+    await fsp.rename(this.directories.output, tmp);
 
     try {
       let viteOptions = lodashMerge({}, this.options.viteOptions);
@@ -59,19 +62,19 @@ class EleventyVite {
         .filter(entry => !!entry.outputPath) // filter out `false` serverless routes
         .filter(entry => (entry.outputPath || "").endsWith(".html")) // only html output
         .map(entry => {
-          if(!entry.outputPath.startsWith(this.outputDir + path.sep)) {
-            throw new Error(`Unexpected output path (was not in output directory ${this.outputDir}): ${entry.outputPath}`);
+          if(!entry.outputPath.startsWith(this.directories.output)) {
+            throw new Error(`Unexpected output path (was not in output directory ${this.directories.output}): ${entry.outputPath}`);
           }
 
-          return path.resolve(tmp, entry.outputPath.substr(this.outputDir.length + path.sep.length));
+          return path.resolve(tmp, entry.outputPath.substring(this.directories.output.length));
         });
 
-      viteOptions.build.outDir = path.resolve(".", this.outputDir);
+      viteOptions.build.outDir = path.resolve(".", this.directories.output);
 
       await build(viteOptions);
     } catch(e) {
-      console.warn( `[11ty] Encountered a Vite build error, restoring original Eleventy output to ${this.outputDir}`, e );
-      await fsp.rename(tmp, this.outputDir);
+      console.warn( `[11ty] Encountered a Vite build error, restoring original Eleventy output to ${this.directories.output}`, e );
+      await fsp.rename(tmp, this.directories.output);
       throw e;
     } finally {
       // remove the tmp dir

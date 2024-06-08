@@ -11,7 +11,7 @@ export default function(eleventyConfig, options = {}) {
     console.warn( `[11ty] Warning: Eleventy Plugin (${pkg.name}) Compatibility: ${e.message}` );
   }
 
-  let eleventyVite = new EleventyVite(eleventyConfig.dir.output, options);
+  let eleventyVite = new EleventyVite(eleventyConfig.directories, options);
 
   // Adds support for automatic publicDir passthrough copy
   // vite/rollup will not touch these files and as part of the build will copy them to the root of your output folder
