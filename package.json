@@ -35,6 +35,6 @@
   "homepage": "https://github.com/11ty/eleventy-plugin-vite/",
   "dependencies": {
     "lodash.merge": "^4.6.2",
-    "vite": "^4.0.4"
+    "vite": "^5.2.13"
   }
 }
