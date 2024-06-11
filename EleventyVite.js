@@ -1,6 +1,6 @@
 import { promises as fsp } from "node:fs";
 import path from "node:path";
-import lodashMerge from "lodash.merge";
+import { DeepCopy, Merge } from "@11ty/eleventy-utils";
 import { build, createServer } from "vite";
 
 const DEFAULT_OPTIONS = {
@@ -32,11 +32,11 @@ export default class EleventyVite {
 
   constructor(directories, pluginOptions = {}) {
     this.directories = directories;
-    this.options = lodashMerge({}, DEFAULT_OPTIONS, pluginOptions);
+    this.options = Merge({}, DEFAULT_OPTIONS, pluginOptions);
   }
 
   async getServerMiddleware() {
-    let viteOptions = lodashMerge({}, this.options.viteOptions);
+    let viteOptions = DeepCopy({}, this.options.viteOptions);
     viteOptions.root = this.directories.output;
 
     let vite = await createServer(viteOptions);
@@ -55,7 +55,7 @@ export default class EleventyVite {
     await fsp.rename(this.directories.output, tmp);
 
     try {
-      let viteOptions = lodashMerge({}, this.options.viteOptions);
+      let viteOptions = DeepCopy({}, this.options.viteOptions);
       viteOptions.root = tmp;
 
       viteOptions.build.rollupOptions.input = input

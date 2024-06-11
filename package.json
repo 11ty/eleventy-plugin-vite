@@ -40,7 +40,7 @@
     "example:clean": "rimraf ./example/_site"
   },
   "dependencies": {
-    "lodash.merge": "^4.6.2",
+    "@11ty/eleventy-utils": "^1.0.3",
     "vite": "^5.2.13"
   },
   "devDependencies": {
