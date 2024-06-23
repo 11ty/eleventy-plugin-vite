@@ -20,6 +20,7 @@ const DEFAULT_OPTIONS = {
       middlewareMode: true,
     },
     build: {
+      emptyOutDir: true,
       rollupOptions: {}, // we use this to inject input for MPA build below
     }
   }
