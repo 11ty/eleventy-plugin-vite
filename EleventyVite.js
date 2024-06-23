@@ -17,11 +17,9 @@ const DEFAULT_OPTIONS = {
     clearScreen: false,
     appType: "mpa",
     server: {
-      mode: "development",
       middlewareMode: true,
     },
     build: {
-      mode: "production",
       rollupOptions: {}, // we use this to inject input for MPA build below
     }
   }
