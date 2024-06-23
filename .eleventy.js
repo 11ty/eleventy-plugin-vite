@@ -4,6 +4,18 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const pkg = require('./package.json');
 
+/**
+ * Options which can be passed to eleventy-plugin-vite
+ * @typedef {Object} EleventyViteOptions
+ * @property {string} tempFolderName
+ * @property {import("vite").InlineConfig} [viteOptions]
+ * @property {Object} [serverOptions]
+ */
+
+/**
+ * @param {import('@11ty/eleventy/src/UserConfig').default} eleventyConfig
+ * @param {EleventyViteOptions} options
+ */
 export default function(eleventyConfig, options = {}) {
   try {
     eleventyConfig.versionCheck(pkg["11ty"].compatibility);

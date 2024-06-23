@@ -3,6 +3,7 @@ import path from "node:path";
 import { DeepCopy, Merge } from "@11ty/eleventy-utils";
 import { build, createServer } from "vite";
 
+/** @type {Required<import(".eleventy.js").EleventyViteOptions>} */
 const DEFAULT_OPTIONS = {
   tempFolderName: ".11ty-vite",
   viteOptions: {
@@ -30,12 +31,16 @@ export default class EleventyVite {
   /** @type {import("@11ty/eleventy/src/Util/ProjectDirectories.js").default} */
   directories;
 
+  /** @type {Required<import(".eleventy.js").EleventyViteOptions>} */
+  options;
+
   constructor(directories, pluginOptions = {}) {
     this.directories = directories;
     this.options = Merge({}, DEFAULT_OPTIONS, pluginOptions);
   }
 
   async getServerMiddleware() {
+    /** @type {import("vite").InlineConfig} */
     let viteOptions = DeepCopy({}, this.options.viteOptions);
     viteOptions.root = this.directories.output;
 
@@ -54,6 +59,7 @@ export default class EleventyVite {
     await fsp.rename(this.directories.output, tmp);
 
     try {
+      /** @type {import("vite").InlineConfig} */
       let viteOptions = DeepCopy({}, this.options.viteOptions);
       viteOptions.root = tmp;
 
