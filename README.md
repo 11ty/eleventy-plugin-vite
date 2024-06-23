@@ -51,25 +51,25 @@ module.exports = function(eleventyConfig) {
     tempFolderName: ".11ty-vite", // Default name of the temp folder
 
     // Options passed to the Eleventy Dev Server
-    // e.g. domdiff, enabled, etc.
-    // Added in Vite plugin v2.0.0
-    serverOptions: {},
+    // Defaults
+    serverOptions: {
+        module: "@11ty/eleventy-dev-server",
+        domDiff: false,
+    },
 
-    // defaults are shown
+    // Defaults
     viteOptions: {
       clearScreen: false,
-      appType: "mpa", // New in v2.0.0
+      appType: "mpa",
 
       server: {
-        mode: "development",
         middlewareMode: true,
       },
 
       build: {
-        mode: "production",
+          emptyOutDir: true,
       },
 
-      // New in v2.0.0
       resolve: {
         alias: {
           // Allow references to `node_modules` folder directly

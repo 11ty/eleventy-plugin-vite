@@ -7,13 +7,6 @@ import { build, createServer } from "vite";
 const DEFAULT_OPTIONS = {
   tempFolderName: ".11ty-vite",
   viteOptions: {
-    resolve:{
-      alias:{
-        // Allow references to `node_modules` directly for bundling.
-        '/node_modules': path.resolve(".", 'node_modules')
-        // Note that bare module specifiers are also supported
-      },
-    },
     clearScreen: false,
     appType: "mpa",
     server: {
@@ -22,7 +15,14 @@ const DEFAULT_OPTIONS = {
     build: {
       emptyOutDir: true,
       rollupOptions: {}, // we use this to inject input for MPA build below
-    }
+    },
+    resolve:{
+      alias:{
+        // Allow references to `node_modules` directly for bundling.
+        '/node_modules': path.resolve(".", 'node_modules')
+        // Note that bare module specifiers are also supported
+      },
+    },
   }
 }
 
