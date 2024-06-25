@@ -1,14 +1,29 @@
-const pkg = require("./package.json");
-const EleventyVite = require("./EleventyVite");
+import EleventyVite from "./EleventyVite.js";
 
-module.exports = function(eleventyConfig, options = {}) {
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const pkg = require('./package.json');
+
+/**
+ * Options which can be passed to eleventy-plugin-vite
+ * @typedef {Object} EleventyViteOptions
+ * @property {string} tempFolderName
+ * @property {import("vite").InlineConfig} [viteOptions]
+ * @property {Object} [serverOptions]
+ */
+
+/**
+ * @param {import('@11ty/eleventy/src/UserConfig').default} eleventyConfig
+ * @param {EleventyViteOptions} options
+ */
+export default function(eleventyConfig, options = {}) {
   try {
     eleventyConfig.versionCheck(pkg["11ty"].compatibility);
   } catch(e) {
     console.warn( `[11ty] Warning: Eleventy Plugin (${pkg.name}) Compatibility: ${e.message}` );
   }
 
-  let eleventyVite = new EleventyVite(eleventyConfig.dir.output, options);
+  let eleventyVite = new EleventyVite(eleventyConfig.directories, options);
 
   // Adds support for automatic publicDir passthrough copy
   // vite/rollup will not touch these files and as part of the build will copy them to the root of your output folder
