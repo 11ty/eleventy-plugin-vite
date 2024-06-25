@@ -6,7 +6,6 @@
 /.vscode/
 
 # Package managers
-package-lock.json
 /node_modules/
 .npm
 
