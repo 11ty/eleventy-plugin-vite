@@ -1,65 +1,67 @@
 {
-  "name": "@11ty/eleventy-plugin-vite",
-  "version": "5.0.0-alpha.1",
-  "description": "A plugin to use Vite as a development server and run Vite to postprocess your Eleventy build.",
-  "license": "MIT",
-  "engines": {
-    "node": ">=18"
-  },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/11ty"
-  },
-  "keywords": [
-    "eleventy",
-    "server"
-  ],
-  "11ty": {
-    "compatibility": ">=3.0.0-alpha.6"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "contributors": [
-    {
-      "name": "Zach Leatherman",
-      "email": "zachleatherman@gmail.com",
-      "url": "https://zachleat.com/"
-    },
-    {
-      "name": "Kilian Finger",
-      "email": "npm@kilianfinger.com",
-      "url": "https://www.kilianfinger.com/"
-    }
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/11ty/eleventy-plugin-vite.git"
-  },
-  "bugs": "https://github.com/11ty/eleventy-plugin-vite/issues",
-  "homepage": "https://github.com/11ty/eleventy-plugin-vite/",
-  "main": "./.eleventy.js",
-  "type": "module",
-  "exports": {
-    ".": "./.eleventy.js",
-    "./EleventyVite": "./EleventyVite.js",
-    "./package.json": "./package.json"
-  },
-  "files": [
-    ".eleventy.js",
-    "EleventyVite.js"
-  ],
-  "scripts": {
-    "example": "npx @11ty/eleventy --config=example/.eleventy.js --input=example --output=example/_site",
-    "example:start": "npm run example -- --serve",
-    "example:build": "npm run example",
-    "example:clean": "rimraf ./example/_site"
-  },
-  "dependencies": {
-    "@11ty/eleventy-utils": "^1.0.3",
-    "vite": "^5.3.0"
-  },
-  "devDependencies": {
-    "@11ty/eleventy": "3.0.0-alpha.6"
-  }
+	"name": "@11ty/eleventy-plugin-vite",
+	"version": "5.0.0-alpha.1",
+	"description": "A plugin to use Vite as a development server and run Vite to postprocess your Eleventy build.",
+	"license": "MIT",
+	"engines": {
+		"node": ">=18"
+	},
+	"funding": {
+		"type": "opencollective",
+		"url": "https://opencollective.com/11ty"
+	},
+	"keywords": [
+		"eleventy",
+		"server"
+	],
+	"11ty": {
+		"compatibility": ">=3.0.0-alpha.6"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"contributors": [
+		{
+			"name": "Zach Leatherman",
+			"email": "zachleatherman@gmail.com",
+			"url": "https://zachleat.com/"
+		},
+		{
+			"name": "Kilian Finger",
+			"email": "npm@kilianfinger.com",
+			"url": "https://www.kilianfinger.com/"
+		}
+	],
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/11ty/eleventy-plugin-vite.git"
+	},
+	"bugs": "https://github.com/11ty/eleventy-plugin-vite/issues",
+	"homepage": "https://github.com/11ty/eleventy-plugin-vite/",
+	"main": "./.eleventy.js",
+	"type": "module",
+	"exports": {
+		".": "./.eleventy.js",
+		"./EleventyVite": "./EleventyVite.js",
+		"./package.json": "./package.json"
+	},
+	"files": [
+		".eleventy.js",
+		"EleventyVite.js"
+	],
+	"scripts": {
+		"format": "prettier . --write",
+		"example": "npx @11ty/eleventy --config=example/.eleventy.js --input=example --output=example/_site",
+		"example:start": "npm run example -- --serve",
+		"example:build": "npm run example",
+		"example:clean": "rimraf ./example/_site"
+	},
+	"dependencies": {
+		"@11ty/eleventy-utils": "^1.0.3",
+		"vite": "^5.3.0"
+	},
+	"devDependencies": {
+		"@11ty/eleventy": "3.0.0-alpha.6",
+		"prettier": "3.3.2"
+	}
 }
