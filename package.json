@@ -20,11 +20,18 @@
   "publishConfig": {
     "access": "public"
   },
-  "author": {
-    "name": "Zach Leatherman",
-    "email": "zachleatherman@gmail.com",
-    "url": "https://zachleat.com/"
-  },
+  "contributors": [
+    {
+      "name": "Zach Leatherman",
+      "email": "zachleatherman@gmail.com",
+      "url": "https://zachleat.com/"
+    },
+    {
+      "name": "Kilian Finger",
+      "email": "npm@kilianfinger.com",
+      "url": "https://www.kilianfinger.com/"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/11ty/eleventy-plugin-vite.git"
