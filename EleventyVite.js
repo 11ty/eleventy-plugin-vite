@@ -53,7 +53,7 @@ export default class EleventyVite {
   }
 
   async runBuild(input) {
-    let tmp = path.resolve(this.directories.input, this.options.tempFolderName);
+    let tmp = path.resolve(this.options.tempFolderName);
 
     await fsp.rename(this.directories.output, tmp);
 
