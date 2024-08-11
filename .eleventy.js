@@ -1,5 +1,6 @@
 import EleventyVite from "./EleventyVite.js";
 
+import path from "node:path";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const pkg = require("./package.json");
@@ -25,9 +26,16 @@ export default function (eleventyConfig, options = {}) {
 
 	let eleventyVite = new EleventyVite(eleventyConfig.directories, options);
 
+	let publicDir = eleventyVite.options.viteOptions?.publicDir || "public";
+
+	if (!path.relative(eleventyConfig.directories.output, publicDir)) {
+		throw new Error(
+			`[11ty] Error: Eleventy Plugin (${pkg.name}) Misconfiguration: Can't use the same directory for 11ty output and vite public directory`,
+		);
+	}
+
 	// Adds support for automatic publicDir passthrough copy
 	// vite/rollup will not touch these files and as part of the build will copy them to the root of your output folder
-	let publicDir = eleventyVite.options.viteOptions?.publicDir || "public";
 	eleventyConfig.ignores.add(publicDir);
 
 	// Use passthrough copy on the public directory
