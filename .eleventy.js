@@ -56,10 +56,14 @@ export default function (eleventyConfig, options = {}) {
 
 	serverOptions.setup = async () => {
 		// Use Vite as Middleware
-		let middleware = await eleventyVite.getServerMiddleware();
+		const viteDevServer = await eleventyVite.getServer();
+
+		process.on("SIGINT", async () => {
+			await viteDevServer.close();
+		});
 
 		return {
-			middleware: [middleware],
+			middleware: [viteDevServer.middlewares],
 		};
 	};
 

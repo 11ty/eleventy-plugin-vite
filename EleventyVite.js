@@ -38,14 +38,12 @@ export default class EleventyVite {
 		this.options = Merge({}, DEFAULT_OPTIONS, pluginOptions);
 	}
 
-	async getServerMiddleware() {
+	getServer() {
 		/** @type {import("vite").InlineConfig} */
-		let viteOptions = DeepCopy({}, this.options.viteOptions);
+		const viteOptions = DeepCopy({}, this.options.viteOptions);
 		viteOptions.root = this.directories.output;
 
-		let vite = await createServer(viteOptions);
-
-		return vite.middlewares;
+		return createServer(viteOptions);
 	}
 
 	getIgnoreDirectory() {
