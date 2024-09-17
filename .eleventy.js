@@ -24,9 +24,9 @@ export default function (eleventyConfig, options = {}) {
 		console.warn(`[11ty] Warning: Eleventy Plugin (${pkg.name}) Compatibility: ${e.message}`);
 	}
 
-	let eleventyVite = new EleventyVite(eleventyConfig.directories, options);
+	const eleventyVite = new EleventyVite(eleventyConfig.directories, options);
 
-	let publicDir = eleventyVite.options.viteOptions?.publicDir || "public";
+	const publicDir = eleventyVite.options.viteOptions?.publicDir || "public";
 
 	if (!path.relative(eleventyConfig.directories.output, publicDir)) {
 		throw new Error(
@@ -39,14 +39,14 @@ export default function (eleventyConfig, options = {}) {
 	eleventyConfig.ignores.add(publicDir);
 
 	// Use passthrough copy on the public directory
-	let passthroughCopyObject = {};
+	const passthroughCopyObject = {};
 	passthroughCopyObject[`${publicDir}/`] = "/";
 	eleventyConfig.addPassthroughCopy(passthroughCopyObject);
 
 	// Add temp folder to the ignores
 	eleventyConfig.ignores.add(eleventyVite.getIgnoreDirectory());
 
-	let serverOptions = Object.assign(
+	const serverOptions = Object.assign(
 		{
 			module: "@11ty/eleventy-dev-server",
 			domDiff: false,

@@ -51,13 +51,13 @@ export default class EleventyVite {
 	}
 
 	async runBuild(input) {
-		let tmp = path.resolve(this.options.tempFolderName);
+		const tmp = path.resolve(this.options.tempFolderName);
 
 		await fsp.rename(this.directories.output, tmp);
 
 		try {
 			/** @type {import("vite").InlineConfig} */
-			let viteOptions = DeepCopy({}, this.options.viteOptions);
+			const viteOptions = DeepCopy({}, this.options.viteOptions);
 			viteOptions.root = tmp;
 
 			viteOptions.build.rollupOptions.input = input
