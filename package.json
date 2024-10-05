@@ -15,7 +15,7 @@
 		"server"
 	],
 	"11ty": {
-		"compatibility": ">=3.0.0-alpha.6"
+		"compatibility": ">=3.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
@@ -58,10 +58,10 @@
 	},
 	"dependencies": {
 		"@11ty/eleventy-utils": "^1.0.3",
-		"vite": "^5.4.2"
+		"vite": "^5.4.8"
 	},
 	"devDependencies": {
-		"@11ty/eleventy": "3.0.0-alpha.6",
+		"@11ty/eleventy": "3.0.0",
 		"prettier": "3.3.3"
 	}
 }
