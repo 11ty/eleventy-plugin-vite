@@ -39,7 +39,7 @@ export default function (eleventyConfig) {
 ### CommonJS `.eleventy.js` Config
 
 > [!NOTE]
-> This plugin is written in ESM, therefore `require` is not possible. If your .eleventy.js config is in CommonJS make it async and create a dynamic import as shown below.
+> This plugin is written in ESM, therefore `require` is not possible. If your .eleventy.js config uses CommonJS, make it async and create a dynamic import as shown below.
 
 ```js
 module.exports = async function (eleventyConfig) {
@@ -48,6 +48,8 @@ module.exports = async function (eleventyConfig) {
 	eleventyConfig.addPlugin(EleventyPluginVite);
 };
 ```
+
+Read more about ESM vs CommonJS on the [Eleventy documentation](https://www.11ty.dev/docs/cjs-esm/).
 
 ### Options
 
