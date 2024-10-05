@@ -93,10 +93,6 @@ export default function (eleventyConfig) {
 }
 ```
 
-## Limitations and TODOs
-
-- TODO: While serverless routes can be used and rendered in the dev server, Vite cannot be used to process that output yet. [Issue #1: Process Serverless Output with Vite](https://github.com/11ty/eleventy-plugin-vite/issues/1).
-
 ## Related Projects
 
 - [`eleventy-plus-vite`](https://github.com/matthiasott/eleventy-plus-vite) by @matthiasott: A starter template using this plugin
