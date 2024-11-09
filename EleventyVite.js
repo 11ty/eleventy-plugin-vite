@@ -27,14 +27,20 @@ const DEFAULT_OPTIONS = {
 };
 
 export default class EleventyVite {
+	static LOGGER_PREFIX = "[11ty/eleventy-plugin-vite]";
+
 	/** @type {import("@11ty/eleventy/src/Util/ProjectDirectories.js").default} */
 	directories;
+
+	/** @type {import("@11ty/eleventy/src/Util/ConsoleLogger.js").default} */
+	logger;
 
 	/** @type {Required<import(".eleventy.js").EleventyViteOptions>} */
 	options;
 
-	constructor(directories, pluginOptions = {}) {
-		this.directories = directories;
+	constructor(eleventyConfig, pluginOptions = {}) {
+		this.directories = eleventyConfig.directories;
+		this.logger = eleventyConfig.logger;
 		this.options = Merge({}, DEFAULT_OPTIONS, pluginOptions);
 	}
 
@@ -77,13 +83,38 @@ export default class EleventyVite {
 
 			viteOptions.build.outDir = path.resolve(".", this.directories.output);
 
+			this.logger.logWithOptions({
+				prefix: EleventyVite.LOGGER_PREFIX,
+				message: "Starting Vite build",
+				type: "info",
+			});
 			await build(viteOptions);
+			this.logger.logWithOptions({
+				prefix: EleventyVite.LOGGER_PREFIX,
+				message: "Finished Vite build",
+				type: "info",
+			});
 		} catch (error) {
-			console.warn(
-				`[11ty] Encountered a Vite build error, restoring original Eleventy output to ${this.directories.output}`,
-				error,
-			);
+			this.logger.logWithOptions({
+				prefix: EleventyVite.LOGGER_PREFIX,
+				message: `Encountered a Vite build error, restoring original Eleventy output to ${this.directories.output}`,
+				type: "error",
+				color: "red",
+			});
+			this.logger.logWithOptions({
+				prefix: EleventyVite.LOGGER_PREFIX,
+				message: "Vite error:",
+				type: "error",
+			});
+			this.logger.logWithOptions({
+				prefix: EleventyVite.LOGGER_PREFIX,
+				message: JSON.stringify(error, null, 2),
+				type: "error",
+				color: "cyan",
+			});
+
 			await fsp.rename(tempFolderPath, this.directories.output);
+
 			throw error;
 		} finally {
 			await fsp.rm(tempFolderPath, { force: true, recursive: true });

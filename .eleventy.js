@@ -20,11 +20,13 @@ const pkg = require("./package.json");
 export default function (eleventyConfig, options = {}) {
 	try {
 		eleventyConfig.versionCheck(pkg["11ty"].compatibility);
-	} catch (e) {
-		console.warn(`[11ty] Warning: Eleventy Plugin (${pkg.name}) Compatibility: ${e.message}`);
+	} catch (error) {
+		eleventyConfig.logger.warn(
+			`Warning: Eleventy Plugin (${pkg.name}) Compatibility: ${error.message}`,
+		);
 	}
 
-	const eleventyVite = new EleventyVite(eleventyConfig.directories, options);
+	const eleventyVite = new EleventyVite(eleventyConfig, options);
 
 	const publicDir = eleventyVite.options.viteOptions?.publicDir || "public";
 
