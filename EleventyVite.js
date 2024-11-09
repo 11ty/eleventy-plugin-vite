@@ -51,14 +51,13 @@ export default class EleventyVite {
 	}
 
 	async runBuild(input) {
-		const tmp = path.resolve(this.options.tempFolderName);
-
-		await fsp.rename(this.directories.output, tmp);
+		const tempFolderPath = path.resolve(this.options.tempFolderName);
+		await fsp.rename(this.directories.output, tempFolderPath);
 
 		try {
 			/** @type {import("vite").InlineConfig} */
 			const viteOptions = DeepCopy({}, this.options.viteOptions);
-			viteOptions.root = tmp;
+			viteOptions.root = tempFolderPath;
 
 			viteOptions.build.rollupOptions.input = input
 				.filter((entry) => !!entry.outputPath) // filter out `false` serverless routes
@@ -70,22 +69,24 @@ export default class EleventyVite {
 						);
 					}
 
-					return path.resolve(tmp, entry.outputPath.substring(this.directories.output.length));
+					return path.resolve(
+						tempFolderPath,
+						entry.outputPath.substring(this.directories.output.length),
+					);
 				});
 
 			viteOptions.build.outDir = path.resolve(".", this.directories.output);
 
 			await build(viteOptions);
-		} catch (e) {
+		} catch (error) {
 			console.warn(
 				`[11ty] Encountered a Vite build error, restoring original Eleventy output to ${this.directories.output}`,
-				e,
+				error,
 			);
-			await fsp.rename(tmp, this.directories.output);
-			throw e;
+			await fsp.rename(tempFolderPath, this.directories.output);
+			throw error;
 		} finally {
-			// remove the tmp dir
-			await fsp.rm(tmp, { recursive: true });
+			await fsp.rm(tempFolderPath, { recursive: true });
 		}
 	}
 }
