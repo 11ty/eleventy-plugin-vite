@@ -1,0 +1,5 @@
+{
+  "name": "eleventy-plugin-vite-example",
+  "private": true,
+  "type": "module"
+}
