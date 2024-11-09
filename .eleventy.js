@@ -32,7 +32,7 @@ export default function (eleventyConfig, options = {}) {
 
 	if (!path.relative(eleventyConfig.directories.output, publicDir)) {
 		throw new Error(
-			`[11ty] Error: Eleventy Plugin (${pkg.name}) Misconfiguration: Can't use the same directory for 11ty output and vite public directory`,
+			`${EleventyVite.LOGGER_PREFIX} Misconfiguration: Can't use the same directory for 11ty output and vite public directory`,
 		);
 	}
 
