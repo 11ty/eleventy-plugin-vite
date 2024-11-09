@@ -86,7 +86,7 @@ export default class EleventyVite {
 			await fsp.rename(tempFolderPath, this.directories.output);
 			throw error;
 		} finally {
-			await fsp.rm(tempFolderPath, { recursive: true });
+			await fsp.rm(tempFolderPath, { force: true, recursive: true });
 		}
 	}
 }
