@@ -34,16 +34,10 @@ export default function (eleventyConfig, options = {}) {
 		);
 	}
 
-	// Adds support for automatic publicDir passthrough copy
-	// vite/rollup will not touch these files and as part of the build will copy them to the root of your output folder
-	eleventyConfig.ignores.add(publicDir);
+	eleventyConfig.ignores.add(path.join(publicDir, "**"));
+	eleventyConfig.addPassthroughCopy(publicDir);
 
-	// Use passthrough copy on the public directory
-	const passthroughCopyObject = {};
-	passthroughCopyObject[`${publicDir}/`] = "/";
-	eleventyConfig.addPassthroughCopy(passthroughCopyObject);
-
-	// Add temp folder to the ignores
+	// Add temp folder to ignores
 	eleventyConfig.ignores.add(eleventyVite.getIgnoreDirectory());
 
 	const serverOptions = Object.assign(
