@@ -1,12 +1,12 @@
 # Build results
-/example/_site/
+_site
 
 # IDEs
 /.idea/
 /.vscode/
 
 # Package managers
-/node_modules/
+node_modules
 .npm
 
 # Logs

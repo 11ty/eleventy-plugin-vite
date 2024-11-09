@@ -1,7 +1,7 @@
 import EleventyVitePlugin from "../.eleventy.js";
 
 export default function (eleventyConfig) {
-	eleventyConfig.addPassthroughCopy(`${eleventyConfig.directories.input}assets/`);
+	eleventyConfig.addPassthroughCopy("src/assets");
 
 	eleventyConfig.addPlugin(EleventyVitePlugin);
 }
