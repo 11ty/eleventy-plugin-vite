@@ -5,3 +5,9 @@ export default function (eleventyConfig) {
 
 	eleventyConfig.addPlugin(EleventyVitePlugin);
 }
+
+export const config = {
+	dir: {
+		input: "src",
+	},
+};
