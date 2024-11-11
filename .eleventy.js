@@ -34,10 +34,10 @@ export default function (eleventyConfig, options = {}) {
 		);
 	}
 
-	eleventyConfig.ignores.add(path.join(publicDir, "**"));
+	// Add publicDir to passthrough copy
 	eleventyConfig.addPassthroughCopy(publicDir);
 
-	// Add temp folder to ignores
+	// Add tempFolder to ignores
 	eleventyConfig.ignores.add(eleventyVite.getIgnoreDirectory());
 
 	const serverOptions = Object.assign(
