@@ -51,7 +51,7 @@
 	],
 	"scripts": {
 		"format": "prettier . --write",
-		"example": "cd example && eleventy --input=src",
+		"example": "cd example && eleventy",
 		"example:start": "npm run example -- --serve",
 		"example:build": "npm run example",
 		"example:clean": "rimraf ./example/_site"
