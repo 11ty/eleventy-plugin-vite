@@ -2,7 +2,7 @@
 
 # eleventy-plugin-vite 🕚⚡️🎈🐀
 
-A plugin to use [Vite v5](https://vitejs.dev/) with Eleventy v3.
+A plugin to use [Vite](https://vitejs.dev/) with Eleventy.
 
 This plugin:
 
