@@ -7,7 +7,7 @@ updates:
     assignees: [KiwiKilian]
 
   - package-ecosystem: github-actions
-    directories: [/, '.github/workflows/**']
+    directories: [/, ".github/workflows/**"]
     schedule:
       interval: weekly
     assignees: [KiwiKilian]
