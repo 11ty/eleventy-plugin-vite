@@ -58,7 +58,7 @@
 	},
 	"dependencies": {
 		"@11ty/eleventy-utils": "^2.0.0",
-		"vite": "^6.0.7"
+		"vite": "^6.0.11"
 	},
 	"devDependencies": {
 		"@11ty/eleventy": "3.0.0",
