@@ -62,6 +62,6 @@
 	},
 	"devDependencies": {
 		"@11ty/eleventy": "3.1.1",
-		"prettier": "3.5.3"
+		"prettier": "3.6.0"
 	}
 }
