@@ -57,7 +57,7 @@
 		"example:clean": "rimraf ./example/_site"
 	},
 	"dependencies": {
-		"@11ty/eleventy-utils": "^2.0.0",
+		"@11ty/eleventy-utils": "^2.0.7",
 		"vite": "^7.0.0"
 	},
 	"devDependencies": {
