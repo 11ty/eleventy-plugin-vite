@@ -58,17 +58,19 @@ export default class EleventyVite {
 		return path.join(this.options.tempFolderName, "**");
 	}
 
-	async runBuild(input) {
-		const tempFolderPath = path.resolve(this.options.tempFolderName);
-		await fsp.rename(this.directories.output, tempFolderPath);
+	get tempFolderPath() {
+		return path.resolve(this.options.tempFolderName);
+	}
 
-		try {
-			/** @type {import("vite").InlineConfig} */
-			const viteOptions = DeepCopy({}, this.options.viteOptions);
-			viteOptions.root = tempFolderPath;
-			viteOptions.build.outDir = path.resolve(".", this.directories.output);
+	static getEntryPointName(filePath) {
+		return path
+			.join(path.dirname(filePath), path.basename(filePath, path.extname(filePath)))
+			.replace(/^\/+/, "");
+	}
 
-			const htmlInput = input
+	getEleventyRollupOptionsInput(input) {
+		return (
+			input
 				// Filter out `false` serverless routes
 				.filter((entry) => !!entry.outputPath)
 				// Only HTML output
@@ -79,34 +81,47 @@ export default class EleventyVite {
 							`Unexpected output path (was not in output directory ${this.directories.output}): ${entry.outputPath}`,
 						);
 					}
-					const resolvedPath = path.resolve(
-						tempFolderPath,
-						entry.outputPath.substring(this.directories.output.length),
+
+					const filePath = entry.outputPath.substring(this.directories.output.length);
+					result[EleventyVite.getEntryPointName(filePath)] = path.resolve(
+						this.tempFolderPath,
+						filePath,
 					);
-					const name = path.basename(resolvedPath, ".html");
-					result[name] = resolvedPath;
 
 					return result;
-				}, {});
+				}, {})
+		);
+	}
 
-			const userInputUnknown = viteOptions.build.rollupOptions.input;
-			let userInput = {};
+	getUserRollupOptionsInput(input) {
+		let userInput = {};
 
-			if (userInputUnknown) {
-				if (Array.isArray(userInputUnknown)) {
-					userInputUnknown.forEach((file) => {
-						userInput[path.basename(file, ".html")] = file;
-					});
-				} else if (typeof userInputUnknown === "object") {
-					userInput = userInputUnknown;
-				} else if (typeof userInputUnknown === "string") {
-					userInput[path.basename(userInputUnknown, ".html")] = userInputUnknown;
-				}
+		if (input) {
+			if (Array.isArray(input)) {
+				input.forEach((file) => {
+					userInput[EleventyVite.getEntryPointName(file)] = file;
+				});
+			} else if (typeof input === "object") {
+				userInput = input;
+			} else if (typeof input === "string") {
+				userInput[EleventyVite.getEntryPointName(input)] = input;
 			}
+		}
 
+		return userInput;
+	}
+
+	async runBuild(input) {
+		await fsp.rename(this.directories.output, this.tempFolderPath);
+
+		try {
+			/** @type {import("vite").InlineConfig} */
+			const viteOptions = DeepCopy({}, this.options.viteOptions);
+			viteOptions.root = this.tempFolderPath;
+			viteOptions.build.outDir = path.resolve(".", this.directories.output);
 			viteOptions.build.rollupOptions.input = {
-				...htmlInput,
-				...userInput,
+				...this.getEleventyRollupOptionsInput(input, this.tempFolderPath),
+				...this.getUserRollupOptionsInput(viteOptions.build.rollupOptions.input),
 			};
 
 			this.logger.logWithOptions({
@@ -141,11 +156,11 @@ export default class EleventyVite {
 				color: "cyan",
 			});
 
-			await fsp.rename(tempFolderPath, this.directories.output);
+			await fsp.rename(this.tempFolderPath, this.directories.output);
 
 			throw error;
 		} finally {
-			await fsp.rm(tempFolderPath, { force: true, recursive: true });
+			await fsp.rm(this.tempFolderPath, { force: true, recursive: true });
 		}
 	}
 }
