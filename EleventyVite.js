@@ -14,7 +14,9 @@ const DEFAULT_OPTIONS = {
 		},
 		build: {
 			emptyOutDir: true,
-			rollupOptions: {}, // we use this to inject input for MPA build below
+			rollupOptions: {
+				// HTML files will be injected and merged into `input` for MPA
+			},
 		},
 		resolve: {
 			alias: {
@@ -64,31 +66,57 @@ export default class EleventyVite {
 			/** @type {import("vite").InlineConfig} */
 			const viteOptions = DeepCopy({}, this.options.viteOptions);
 			viteOptions.root = tempFolderPath;
+			viteOptions.build.outDir = path.resolve(".", this.directories.output);
 
-			viteOptions.build.rollupOptions.input = input
-				.filter((entry) => !!entry.outputPath) // filter out `false` serverless routes
-				.filter((entry) => (entry.outputPath || "").endsWith(".html")) // only html output
-				.map((entry) => {
+			const htmlInput = input
+				// Filter out `false` serverless routes
+				.filter((entry) => !!entry.outputPath)
+				// Only HTML output
+				.filter((entry) => (entry.outputPath ?? "").endsWith(".html"))
+				.reduce((result, entry) => {
 					if (!entry.outputPath.startsWith(this.directories.output)) {
 						throw new Error(
 							`Unexpected output path (was not in output directory ${this.directories.output}): ${entry.outputPath}`,
 						);
 					}
-
-					return path.resolve(
+					const resolvedPath = path.resolve(
 						tempFolderPath,
 						entry.outputPath.substring(this.directories.output.length),
 					);
-				});
+					const name = path.basename(resolvedPath, ".html");
+					result[name] = resolvedPath;
 
-			viteOptions.build.outDir = path.resolve(".", this.directories.output);
+					return result;
+				}, {});
+
+			const userInputUnknown = viteOptions.build.rollupOptions.input;
+			let userInput = {};
+
+			if (userInputUnknown) {
+				if (Array.isArray(userInputUnknown)) {
+					userInputUnknown.forEach((file) => {
+						userInput[path.basename(file, ".html")] = file;
+					});
+				} else if (typeof userInputUnknown === "object") {
+					userInput = userInputUnknown;
+				} else if (typeof userInputUnknown === "string") {
+					userInput[path.basename(userInputUnknown, ".html")] = userInputUnknown;
+				}
+			}
+
+			viteOptions.build.rollupOptions.input = {
+				...htmlInput,
+				...userInput,
+			};
 
 			this.logger.logWithOptions({
 				prefix: EleventyVite.LOGGER_PREFIX,
 				message: "Starting Vite build",
 				type: "info",
 			});
+
 			await build(viteOptions);
+
 			this.logger.logWithOptions({
 				prefix: EleventyVite.LOGGER_PREFIX,
 				message: "Finished Vite build",
