@@ -50,6 +50,7 @@
 		"EleventyVite.js"
 	],
 	"scripts": {
+		"test": "vitest",
 		"format": "prettier . --write",
 		"example": "cd example && eleventy",
 		"example:start": "npm run example -- --serve",
@@ -62,6 +63,7 @@
 	},
 	"devDependencies": {
 		"@11ty/eleventy": "3.1.2",
-		"prettier": "3.6.2"
+		"prettier": "3.6.2",
+		"vitest": "3.2.4"
 	}
 }
