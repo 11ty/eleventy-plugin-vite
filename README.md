@@ -53,45 +53,51 @@ Read more about ESM vs CommonJS on the [Eleventy documentation](https://www.11ty
 
 ### Options
 
-View the [full list of Vite Configuration options](https://vitejs.dev/config/).
+These are the default options of the plugin. There's no need to specify them unless you want to change them.
 
 ```js
 import EleventyVitePlugin from "@11ty/eleventy-plugin-vite";
 
 export default function (eleventyConfig) {
 	eleventyConfig.addPlugin(EleventyVitePlugin, {
-		tempFolderName: ".11ty-vite", // Default name of the temp folder
+        // Default name of the temp folder
+		tempFolderName: ".11ty-vite",
 
-		// Options passed to the Eleventy Dev Server
-		// Defaults
+		// Eleventy Dev Server Options
 		serverOptions: {
 			module: "@11ty/eleventy-dev-server",
 			domDiff: false,
 		},
 
-		// Defaults
+		// Vite Config
 		viteOptions: {
 			clearScreen: false,
 			appType: "mpa",
-
 			server: {
 				middlewareMode: true,
 			},
-
 			build: {
 				emptyOutDir: true,
+				rollupOptions: {
+					input: {
+						// HTML entry points will be injected automatically
+						// Custom input will be merged
+					},
+				},
 			},
-
 			resolve: {
 				alias: {
-					// Allow references to `node_modules` folder directly
+					// Allow references to `node_modules` directly for bundling.
 					"/node_modules": path.resolve(".", "node_modules"),
+					// Note that bare module specifiers are also supported
 				},
 			},
 		},
 	});
 }
 ```
+
+View the [full list of Vite configuration options](https://vitejs.dev/config/). Custom viteOptions will be deeply merged with the defaults.
 
 ## Related Projects
 
