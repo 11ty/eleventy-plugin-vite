@@ -6,18 +6,19 @@ permissions: read-all
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: GitHub Publish
     permissions:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # 6.0.2
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # 6.4.0
         with:
           node-version: "22"
           registry-url: "https://registry.npmjs.org"
+      - run: npm install -g npm@latest
       - run: npm ci
       - if: ${{ github.event.release.tag_name != '' && env.NPM_PUBLISH_TAG != '' }}
         run: npm publish --provenance --access=public --tag=${{ env.NPM_PUBLISH_TAG }}
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_PUBLISH_TAG: ${{ contains(github.event.release.tag_name, '-alpha.') && 'alpha' || 'latest' }}
