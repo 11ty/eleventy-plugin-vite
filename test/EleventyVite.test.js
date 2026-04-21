@@ -95,7 +95,7 @@ describe("EleventyVite", () => {
 		expect(stat.isFile()).toBe(true);
 	});
 
-	it("getEleventyRollupOptionsInput returns correct input object", () => {
+	it("getEleventyRolldownOptionsInput returns correct input object", () => {
 		const entries = [
 			{ outputPath: `${outputPath}index.html` },
 			{ outputPath: `${outputPath}posts/index.html` },
@@ -106,7 +106,7 @@ describe("EleventyVite", () => {
 
 		const plugin = new EleventyVite(mockEleventyConfig, pluginOptions);
 
-		const result = plugin.getEleventyRollupOptionsInput(entries);
+		const result = plugin.getEleventyRolldownOptionsInput(entries);
 
 		expect(result).toEqual({
 			index: path.resolve(`${tempFolderName}/index.html`),
@@ -115,9 +115,9 @@ describe("EleventyVite", () => {
 		});
 	});
 
-	it("getUserRollupOptionsInput handles array input", () => {
+	it("getUserRolldownOptionsInput handles array input", () => {
 		const plugin = new EleventyVite(mockEleventyConfig, pluginOptions);
-		const result = plugin.getUserRollupOptionsInput(["script.js", "styles/main.css"]);
+		const result = plugin.getUserRolldownOptionsInput(["script.js", "styles/main.css"]);
 
 		expect(result).toEqual({
 			script: "script.js",
@@ -125,9 +125,9 @@ describe("EleventyVite", () => {
 		});
 	});
 
-	it("getUserRollupOptionsInput handles object input", () => {
+	it("getUserRolldownOptionsInput handles object input", () => {
 		const plugin = new EleventyVite(mockEleventyConfig, pluginOptions);
-		const result = plugin.getUserRollupOptionsInput({
+		const result = plugin.getUserRolldownOptionsInput({
 			script: "script.js",
 			"styles/main": "styles/main.css",
 		});
@@ -138,9 +138,9 @@ describe("EleventyVite", () => {
 		});
 	});
 
-	it("getUserRollupOptionsInput handles string input", () => {
+	it("getUserRolldownOptionsInput handles string input", () => {
 		const plugin = new EleventyVite(mockEleventyConfig, pluginOptions);
-		const result = plugin.getUserRollupOptionsInput("styles/main.css");
+		const result = plugin.getUserRolldownOptionsInput("styles/main.css");
 
 		expect(result).toEqual({
 			"styles/main": "styles/main.css",

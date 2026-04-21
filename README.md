@@ -78,7 +78,7 @@ export default function (eleventyConfig) {
 			},
 			build: {
 				emptyOutDir: true,
-				rollupOptions: {
+				rolldownOptions: {
 					input: {
 						// HTML entry points will be injected automatically
 						// Custom input will be merged
