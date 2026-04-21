@@ -14,7 +14,7 @@ const DEFAULT_OPTIONS = {
 		},
 		build: {
 			emptyOutDir: true,
-			rollupOptions: {
+			rolldownOptions: {
 				// HTML files will be injected and merged into `input` for MPA
 			},
 		},
@@ -43,6 +43,21 @@ export default class EleventyVite {
 	constructor(eleventyConfig, pluginOptions = {}) {
 		this.directories = eleventyConfig.directories;
 		this.logger = eleventyConfig.logger;
+
+		// Relevant until `rollupOptions` are removed
+		pluginOptions = DeepCopy({}, pluginOptions);
+		const userBuildOptions = pluginOptions.viteOptions?.build;
+		if (userBuildOptions?.rollupOptions && !userBuildOptions?.rolldownOptions) {
+			this.logger.logWithOptions({
+				prefix: EleventyVite.LOGGER_PREFIX,
+				message: "Use `rolldownOptions` are deprecated, use `rollupOptions` instead",
+				type: "info",
+			});
+
+			userBuildOptions.rolldownOptions = userBuildOptions.rollupOptions;
+			delete userBuildOptions.rollupOptions;
+		}
+
 		this.options = Merge({}, DEFAULT_OPTIONS, pluginOptions);
 	}
 
@@ -68,7 +83,7 @@ export default class EleventyVite {
 			.replace(/^\/+/, "");
 	}
 
-	getEleventyRollupOptionsInput(input) {
+	getEleventyRolldownOptionsInput(input) {
 		return (
 			input
 				// Filter out `false` serverless routes
@@ -93,7 +108,7 @@ export default class EleventyVite {
 		);
 	}
 
-	getUserRollupOptionsInput(input) {
+	getUserRolldownOptionsInput(input) {
 		let userInput = {};
 
 		if (input) {
@@ -119,9 +134,9 @@ export default class EleventyVite {
 			const viteOptions = DeepCopy({}, this.options.viteOptions);
 			viteOptions.root = this.tempFolderPath;
 			viteOptions.build.outDir = path.resolve(".", this.directories.output);
-			viteOptions.build.rollupOptions.input = {
-				...this.getEleventyRollupOptionsInput(input, this.tempFolderPath),
-				...this.getUserRollupOptionsInput(viteOptions.build.rollupOptions.input),
+			viteOptions.build.rolldownOptions.input = {
+				...this.getEleventyRolldownOptionsInput(input, this.tempFolderPath),
+				...this.getUserRolldownOptionsInput(viteOptions.build.rolldownOptions.input),
 			};
 
 			this.logger.logWithOptions({
