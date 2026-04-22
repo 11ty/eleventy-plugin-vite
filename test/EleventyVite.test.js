@@ -138,6 +138,39 @@ describe("EleventyVite", () => {
 		});
 	});
 
+	it("maps rollupOptions to rolldownOptions and logs a deprecation warning", () => {
+		const logCalls = [];
+		const mockConfigWithLogger = {
+			...mockEleventyConfig,
+			logger: {
+				logWithOptions: (opts) => logCalls.push(opts),
+			},
+		};
+
+		const rollupInput = { main: "src/main.js" };
+		const options = {
+			tempFolderName,
+			viteOptions: {
+				build: {
+					rollupOptions: { input: rollupInput },
+				},
+			},
+		};
+
+		const plugin = new EleventyVite(mockConfigWithLogger, options);
+
+		expect(plugin.options.viteOptions.build.rolldownOptions.input).toEqual(rollupInput);
+		expect(plugin.options.viteOptions.build.rollupOptions).toBeUndefined();
+
+		const warning = logCalls.find((c) => c.message.includes("rollupOptions"));
+		expect(warning).toBeTruthy();
+		expect(warning.type).toBe("info");
+
+		// original pluginOptions object must not be mutated
+		expect(options.viteOptions.build.rollupOptions).toEqual({ input: rollupInput });
+		expect(options.viteOptions.build.rolldownOptions).toBeUndefined();
+	});
+
 	it("getUserRolldownOptionsInput handles string input", () => {
 		const plugin = new EleventyVite(mockEleventyConfig, pluginOptions);
 		const result = plugin.getUserRolldownOptionsInput("styles/main.css");
