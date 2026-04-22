@@ -135,7 +135,7 @@ export default class EleventyVite {
 			viteOptions.root = this.tempFolderPath;
 			viteOptions.build.outDir = path.resolve(".", this.directories.output);
 			viteOptions.build.rolldownOptions.input = {
-				...this.getEleventyRolldownOptionsInput(input, this.tempFolderPath),
+				...this.getEleventyRolldownOptionsInput(input),
 				...this.getUserRolldownOptionsInput(viteOptions.build.rolldownOptions.input),
 			};
 
