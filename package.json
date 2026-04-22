@@ -4,7 +4,7 @@
 	"description": "A plugin to use Vite as a development server and run Vite to postprocess your Eleventy build.",
 	"license": "MIT",
 	"engines": {
-		"node": ">=18"
+		"node": "^20.19.0 || >=22.12.0"
 	},
 	"funding": {
 		"type": "opencollective",
