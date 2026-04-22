@@ -50,7 +50,7 @@ export default class EleventyVite {
 		if (userBuildOptions?.rollupOptions && !userBuildOptions?.rolldownOptions) {
 			this.logger.logWithOptions({
 				prefix: EleventyVite.LOGGER_PREFIX,
-				message: "Use `rolldownOptions` are deprecated, use `rollupOptions` instead",
+				message: "Usage of `rollupOptions` is deprecated, use `rolldownOptions` instead",
 				type: "info",
 			});
 
