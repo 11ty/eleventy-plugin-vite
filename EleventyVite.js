@@ -64,7 +64,15 @@ export default class EleventyVite {
 	getServer() {
 		/** @type {import("vite").InlineConfig} */
 		const viteOptions = DeepCopy({}, this.options.viteOptions);
+
 		viteOptions.root = this.directories.output;
+
+		// Ignore the output and temp folders by default in the Vite server watcher
+		viteOptions.server.watch ??= {};
+		viteOptions.server.watch.ignored ??= [
+			path.join(path.resolve(this.directories.output), "**"),
+			path.join(this.tempFolderPath, "**"),
+		];
 
 		return createServer(viteOptions);
 	}
