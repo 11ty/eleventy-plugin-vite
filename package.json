@@ -62,7 +62,7 @@
 		"vite": "^8.0.9"
 	},
 	"devDependencies": {
-		"@11ty/eleventy": "3.1.6",
+		"@11ty/eleventy": "3.1.7",
 		"prettier": "3.9.6",
 		"vitest": "5.0.0"
 	}
